@@ -127,6 +127,10 @@ public class IndexWriter {
         element.setTextContent(VERSION);
         rootElement.appendChild(element);
         
+        element = document.createElement("generated");
+        element.setTextContent(Long.toString(System.currentTimeMillis()));
+        rootElement.appendChild(element);
+        
         element = document.createElement("author");
         element.setTextContent(AUTHOR);
         rootElement.appendChild(element);
