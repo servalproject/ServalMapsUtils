@@ -21,6 +21,7 @@ package org.servalproject.maps.mapfiletester.utils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 /**
  * class used to filter file names when building a file list
@@ -71,7 +72,17 @@ public class FileNameFilter implements FilenameFilter {
 		
 		// return subdirectories
 		if(withDirs) {
-			if(directory.isDirectory() && !directory.getName().equals(".") && !directory.getName().equals("..")) {
+			
+			// use the full canonical path to stop Java from treating paths as relative to the
+			// current working directory
+			File testDir;
+			try {
+				testDir = new File(directory.getCanonicalPath() + File.separatorChar + filename);
+			} catch (IOException e) {
+				return false;
+			}
+
+			if(testDir.isDirectory() && !testDir.getName().equals(".") && !testDir.getName().equals("..")) {
 				return true;
 			}
 		}
