@@ -91,6 +91,14 @@ public class OsmPbfMetadata {
 
 		File inputFile = new File(inputPath);
 		
+		/*
+		 * output some text
+		 */
+		System.out.println(APP_NAME);
+		System.out.println("Version: " + APP_VERSION);
+		System.out.println("More info: " + MORE_INFO);
+		System.out.println("License info: " + LICENSE_INFO + "\n");
+		
 		// inform user of resources we'll be working on
 		try {
 			if(inputFile.isDirectory()) {
