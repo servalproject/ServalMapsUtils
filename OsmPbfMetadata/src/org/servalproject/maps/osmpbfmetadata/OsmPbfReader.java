@@ -17,14 +17,14 @@
  * along with this source code; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package org.servalprobect.maps.osmpbfmetadata;
+package org.servalproject.maps.osmpbfmetadata;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.servalprobect.maps.osmpbfmetadata.utils.FileUtils;
+import org.servalproject.maps.osmpbfmetadata.utils.FileUtils;
 
 import crosby.binary.file.BlockInputStream;
 
