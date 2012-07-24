@@ -39,6 +39,9 @@ public class BinaryDataParser extends BinaryParser {
 	 */
 	private static final double MULTIPLIER = .000000001;
 	private static final String HEADER_TYPE = "OSMHeader";
+	
+	private static final String URL_FORMAT = "http://openstreetmap.org/?minlon=%1$f&minlat=%2$f&maxlon=%3$f&maxlat=%4$f&box=yes";
+	private static final String BBOX_FORMAT = "Bounding box lat/lng: %1$f,%2$f %3$f, %4$f";
 
 	/*
 	 * (non-Javadoc)
@@ -60,12 +63,15 @@ public class BinaryDataParser extends BinaryParser {
 		// check to see if this block has a bounding box
 		if(block.hasBbox()) {
 			
-			double rightf = truncateDouble(block.getBbox().getRight() * MULTIPLIER);
-			double leftf = truncateDouble(block.getBbox().getLeft() * MULTIPLIER);
-			double topf = truncateDouble(block.getBbox().getTop() * MULTIPLIER);
-			double bottomf = truncateDouble(block.getBbox().getBottom() * MULTIPLIER);
+			double right = truncateDouble(block.getBbox().getRight() * MULTIPLIER);
+			double left = truncateDouble(block.getBbox().getLeft() * MULTIPLIER);
+			double top = truncateDouble(block.getBbox().getTop() * MULTIPLIER);
+			double bottom = truncateDouble(block.getBbox().getBottom() * MULTIPLIER);
 			
-			System.out.println("Bounding box: " + topf + ", " + leftf + " - " + bottomf + ", " + rightf);			
+			//left,bottom,right,top.
+			
+			System.out.println(String.format(BBOX_FORMAT, bottom, left, top, right));
+			System.out.println(String.format(URL_FORMAT, left, bottom, right, top));
 		}
 		
 	}
