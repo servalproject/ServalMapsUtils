@@ -57,6 +57,14 @@ public class BBoxSplit {
 			throw new IOException("unable to access the required file", e);
 		}
 		
+		// check to see if this file should be ignored
+		if(OsmBBoxSplit.ignoreList.size() > 0) {
+			if(OsmBBoxSplit.ignoreList.contains(inputFile.getCanonicalPath())) {
+				System.out.println("WARNING: File specified in the ignore list, skipping...");
+				return;
+			}
+		}
+		
 		// read the data in the file
 		BlockInputStream blockinput;
 		BinaryDataParser dataParser = new BinaryDataParser();

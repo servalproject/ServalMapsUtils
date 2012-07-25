@@ -22,6 +22,7 @@ package org.servalproject.maps.osmbboxsplit;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -60,7 +61,12 @@ public class OsmBBoxSplit {
 	/**
 	 * minimum file size, in MB, of files to split
 	 */
-	public static final int MIN_FILE_SIZE = 10;
+	public static final int MIN_FILE_SIZE = 100;
+	
+	/**
+	 * a list of files that should be ignored
+	 */
+	public static ArrayList<String> ignoreList;
 	
 	/**
 	 * main method of the main class of the application
@@ -146,6 +152,35 @@ public class OsmBBoxSplit {
 			}
 		}
 		
+		// ignore list path
+		ignoreList = new ArrayList<String>();
+		
+		String ignorePath = cmd.getOptionValue("ignore");
+		
+		if(StringUtils.isEmpty(ignorePath) == false) {
+			
+			if(FileUtils.isFileAccessible(ignorePath) == false) {
+				printCliHelp("Error: the ignore list file is not accessible");
+			}
+			
+			// read the contents of the ignore list file
+			try {
+				ignoreList = (ArrayList<String>) org.apache.commons.io.FileUtils.readLines(new File(ignorePath));
+				
+				// strip out any comment lines
+				for (int i = 0; i < ignoreList.size(); i++) {
+					if(ignoreList.get(i).startsWith("#")) {
+						ignoreList.remove(i);
+						i--;
+					}
+				}
+			} catch (IOException e) {
+				System.err.println("ERROR: unable to read the ignore list file");
+				System.exit(-1);
+			}
+			
+		}
+		
 		/*
 		 * output some text
 		 */
@@ -201,6 +236,12 @@ public class OsmBBoxSplit {
 		OptionBuilder.withDescription("minimum size of file in MB to split (Default: " + MIN_FILE_SIZE + " MB)");
 		OptionBuilder.isRequired(false);
 		options.addOption(OptionBuilder.create("minsize"));
+		
+		OptionBuilder.withArgName("path");
+		OptionBuilder.hasArg(true);
+		OptionBuilder.withDescription("path to the ignore list file");
+		OptionBuilder.isRequired(false);
+		options.addOption(OptionBuilder.create("ignore"));
 		
 		OptionBuilder.withArgName("path");
 		OptionBuilder.hasArg(true);
