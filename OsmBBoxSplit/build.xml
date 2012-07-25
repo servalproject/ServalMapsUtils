@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="OsmBBoxSplit" basedir="." default="jar">
+    <!-- start properties -->
+    <property name="src.dir"     value="src"/>
+
+    <property name="build.dir"   value="bin"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+
+    <property name="main-class"  value="org.servalproject.maps.osmbboxsplit.OsmBBoxSplit"/>
+    
+    <property name="lib.dir"     value="lib"/>
+   
+    <!-- end properties -->
+    
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+    
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false"/>
+    </target>
+    
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+        </jar>
+    </target>
+    
+</project>
