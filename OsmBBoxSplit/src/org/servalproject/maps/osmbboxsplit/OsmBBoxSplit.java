@@ -214,7 +214,7 @@ public class OsmBBoxSplit {
 	private static void printCliHelp(String message) {
 		System.out.println(message);
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java -jar OsmPbfMetadata.jar", createOptions());
+		formatter.printHelp("java -jar OsmBBoxSplit.jar", createOptions());
 		System.exit(-1);
 	}
 	
