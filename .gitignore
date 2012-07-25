@@ -3,3 +3,6 @@
 # Package Files #
 *.war
 *.ear
+
+# Mac related files #
+.DS_Store
