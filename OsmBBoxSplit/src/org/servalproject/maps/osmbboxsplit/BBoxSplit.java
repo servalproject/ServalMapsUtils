@@ -94,31 +94,35 @@ public class BBoxSplit {
 			double maxLat = dataParser.getGeoCoordinates()[2];
 			double maxLng = dataParser.getGeoCoordinates()[3];
 			
-			boolean latOk = false;
-			boolean lngOk = false;
+//			boolean latOk = false;
+//			boolean lngOk = false;
+//			
+//			// check to make sure that the all of the lats and longs are of the same size
+//			if((minLat < 0 && maxLat < 0) || (minLat > 0 && maxLat > 0)) {
+//				latOk = true;
+//			}
+//			
+//			if((minLng < 0 && maxLng < 0) || (minLng > 0 && maxLng > 0)) {
+//				lngOk = true;
+//			}
+//			
+//			if(!latOk || !lngOk) {
+//				System.out.println("Error: bounding box spans equator or prime meridian, can't split");
+//				return;
+//			}
+//			
+//			// calculate the differences
+//			double diffLat = (maxLat - minLat) / 2;
+//			double diffLng = (maxLng - minLng) / 2;
+//			
+//			// calculate the new bounding boxes
+//			double newLat = minLat + diffLat;
+//			double newLng = minLng + diffLng;
 			
-			// check to make sure that the all of the lats and longs are of the same size
-			if((minLat < 0 && maxLat < 0) || (minLat > 0 && maxLat > 0)) {
-				latOk = true;
-			}
-			
-			if((minLng < 0 && maxLng < 0) || (minLng > 0 && maxLng > 0)) {
-				lngOk = true;
-			}
-			
-			if(!latOk || !lngOk) {
-				System.out.println("Error: bounding box spans equater or prime meridian, can't split");
-				return;
-			}
-			
-			// calculate the differences
-			double diffLat = (maxLat - minLat) / 2;
-			double diffLng = (maxLng - minLng) / 2;
-			
-			// calculate the new bounding boxes
-			double newLat = minLat + diffLat;
-			double newLng = minLng + diffLng;
-			
+			// calculate the new latitude and longitude
+			double newLat = (minLat + maxLat) / 2;
+			double newLng = (minLng + maxLng) / 2;
+	
 			// output the new definitions
 			System.out.println("BBox A lat/lng: " + newLat + ", " + minLng + " - " + maxLat + ", " + newLng);
 			System.out.println("URL: " + String.format(BinaryDataParser.URL_FORMAT, minLng, newLat, newLng, maxLat));

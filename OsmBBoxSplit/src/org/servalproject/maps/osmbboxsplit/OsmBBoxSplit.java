@@ -46,7 +46,7 @@ public class OsmBBoxSplit {
 	/**
 	 * version of the app
 	 */
-	public static final String APP_VERSION = "1.0";
+	public static final String APP_VERSION = "1.0.1";
 
 	/**
 	 * url for more information about the app
