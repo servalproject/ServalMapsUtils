@@ -84,9 +84,6 @@ public class IndexWriter {
 		// add list of objects
 		jsonObject.put("mapFiles", jsonArray);
 		
-		//debug code
-		System.out.println(jsonObject.toString());
-		
 		// write the file
 		try {
 			PrintWriter writer = new PrintWriter(outputFile);
